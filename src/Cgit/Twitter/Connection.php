@@ -5,7 +5,7 @@ namespace Cgit\Twitter;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use stdClass;
 
-class Connection
+class Connection extends TwitterOAuth
 {
     /**
      * Establish Twitter API connection with default settings

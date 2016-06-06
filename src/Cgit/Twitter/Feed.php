@@ -2,7 +2,6 @@
 
 namespace Cgit\Twitter;
 
-use Abraham\TwitterOAuth\TwitterOAuth;
 use stdClass;
 
 class Feed
@@ -72,17 +71,12 @@ class Feed
     public function update()
     {
         // Twitter API connection
-        $connection = new TwitterOAuth(
-            CGIT_TWITTER_KEY,
-            CGIT_TWITTER_SECRET,
-            CGIT_TWITTER_TOKEN,
-            CGIT_TWITTER_TOKEN_SECRET
-        );
+        $connection = new Connection();
 
         // Load tweets
         $items = $connection->get(
             'statuses/user_timeline',
-            $this->connectionOptions()
+            $this->userTimelineOptions()
         );
 
         if (count($items) == 0) {
@@ -99,11 +93,11 @@ class Feed
     }
 
     /**
-     * Return connection options
+     * Return user timeline connection options
      *
      * @return array
      */
-    private function connectionOptions()
+    private function userTimelineOptions()
     {
         $options = [
             'screen_name' => $this->name,
@@ -194,12 +188,7 @@ class Feed
         }
 
         // Connect to Twitter to check for user
-        $connection = new TwitterOAuth(
-            CGIT_TWITTER_KEY,
-            CGIT_TWITTER_SECRET,
-            CGIT_TWITTER_TOKEN,
-            CGIT_TWITTER_TOKEN_SECRET
-        );
+        $connection = new Connection();
 
         $user = $connection->get('users/show', [
             'screen_name' => $this->name,

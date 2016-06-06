@@ -39,3 +39,15 @@ $html = cgit_twitter_feed_html($user, $count); // HTML list
 ~~~
 
 These provide exactly the same output as the methods above. Using these methods or functions, you should be able to customize the appearance of the feed to suit your plugin or theme.
+
+## Raw JSON ##
+
+Using the `Feed` class you can access the raw JSON data from the Twitter API:
+
+~~~ php
+$feed = new \Cgit\Twitter\Feed('example');
+$data = $feed->get(4, true);
+$raw = json_decode($data->raw);
+~~~
+
+Without the second parameter, the `get()` method will not return the original JSON.

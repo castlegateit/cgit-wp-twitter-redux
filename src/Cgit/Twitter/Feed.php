@@ -293,11 +293,17 @@ class Feed
      * @param int $count
      * @return array
      */
-    public function get($count = 10)
+    public function get($count = 10, $inc_raw = false)
     {
         $table = $this->tableName;
         $users = $this->userTableName;
         $prefix = '_user_';
+        $raw = '';
+
+        // Include raw JSON data?
+        if ($inc_raw) {
+            $raw = ", $table.raw";
+        }
 
         // Get tweet data from database
         $items = $this->database->get_results("
@@ -312,6 +318,7 @@ class Feed
                 $table.url,
                 $table.retweet,
                 $table.content
+                $raw
             FROM $table
             JOIN $users ON $table.user_id = $users.id
             WHERE $users.screen_name = '{$this->name}'

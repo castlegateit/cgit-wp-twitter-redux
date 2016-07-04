@@ -310,7 +310,7 @@ class Feed
             SELECT
                 $table.id,
                 $table.date,
-                $table.id AS {$prefix}id,
+                $users.id AS {$prefix}id,
                 $users.screen_name AS {$prefix}screen_name,
                 $users.name AS {$prefix}name,
                 $users.url AS {$prefix}url,

@@ -124,7 +124,7 @@ class Plugin
             . 'cgit_twitter (
             id BIGINT PRIMARY KEY,
             date DATETIME,
-            user_id INT,
+            user_id BIGINT,
             url VARCHAR(2048),
             retweet TINYINT,
             content TEXT,

@@ -51,3 +51,13 @@ $raw = json_decode($data->raw);
 ~~~
 
 Without the second parameter, the `get()` method will not return the original JSON.
+
+## TwitterOAuth library
+
+This plugin includes [Abraham Williams's TwitterOAuth library](https://github.com/abraham/twitteroauth/) as a submodule, so you should clone this repository recursively:
+
+    git clone --recursive git@github.com:castlegateit/cgit-wp-twitter-redux.git
+
+Alternatively, if you have already cloned this repository, update the submodules:
+
+    git submodule update --init

@@ -1,6 +1,3 @@
-[submodule "twitteroath"]
-	path = twitteroath
-	url = github:abraham/twitteroauth.git
 [submodule "twitteroauth"]
 	path = twitteroauth
-	url = github:abraham/twitteroauth.git
+	url = git@github.com:abraham/twitteroauth.git

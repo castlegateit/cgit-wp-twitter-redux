@@ -252,13 +252,11 @@ class Feed
 
         krsort($entities);
 
+        // Use mb_substr to avoid issues with multi-byte characters caused by
+        // substr_replace, for which there is no multi-byte equivalent.
         foreach ($entities as $entity) {
-            $content = substr_replace(
-                $content,
-                $entity->replace,
-                $entity->start,
-                $entity->length
-            );
+            $content = mb_substr($content, 0, $entity->start) . $entity->replace
+                . mb_substr($content, $entity->end);
         }
 
         return $content;

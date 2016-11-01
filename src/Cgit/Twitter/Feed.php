@@ -162,7 +162,7 @@ class Feed
             'name' => $user->name,
             'screen_name' => $user->screen_name,
             'url' => 'https://twitter.com/' . $user->screen_name,
-            'image' => $user->profile_image_url,
+            'image' => $user->profile_image_url_https,
         ]);
     }
 

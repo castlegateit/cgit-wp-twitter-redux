@@ -236,7 +236,7 @@ class Feed
 
         foreach ($item->entities->user_mentions as $obj) {
             $entity = self::createEntity($obj);
-            $entity->replace = '<a href="https:/twitter.com/'
+            $entity->replace = '<a href="https://twitter.com/'
                 . $obj->screen_name . '">@' . $obj->screen_name . '</a>';
             $entities[$entity->start] = $entity;
         }

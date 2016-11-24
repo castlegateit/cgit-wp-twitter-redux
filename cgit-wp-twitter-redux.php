@@ -5,7 +5,7 @@
 Plugin Name: Castlegate IT WP Twitter Redux
 Plugin URI: http://github.com/castlegateit/cgit-wp-twitter-redux
 Description: Simple, flexible Twitter feed plugin.
-Version: 1.4.1
+Version: 1.4.2
 Author: Castlegate IT
 Author URI: http://www.castlegateit.co.uk/
 License: MIT

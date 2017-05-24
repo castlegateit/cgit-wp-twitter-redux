@@ -98,7 +98,7 @@ class Plugin
     {
         global $wpdb;
 
-        $users = $wpdb->get_col('SELECT screen_name FROM ' . $wpdb->prefix
+        $users = $wpdb->get_col('SELECT screen_name FROM ' . $wpdb->base_prefix
             . 'cgit_twitter_users');
 
         foreach ($users as $user) {
@@ -120,7 +120,7 @@ class Plugin
         global $wpdb;
 
         // Create feed table
-        $wpdb->query('CREATE TABLE IF NOT EXISTS ' . $wpdb->prefix
+        $wpdb->query('CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix
             . 'cgit_twitter (
             id BIGINT PRIMARY KEY,
             date DATETIME,
@@ -132,7 +132,7 @@ class Plugin
         )');
 
         // Create user table
-        $wpdb->query('CREATE TABLE IF NOT EXISTS ' . $wpdb->prefix
+        $wpdb->query('CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix
             . 'cgit_twitter_users (
             id BIGINT PRIMARY KEY,
             name VARCHAR(128),

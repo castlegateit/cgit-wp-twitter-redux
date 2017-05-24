@@ -53,8 +53,8 @@ class Feed
 
         $this->database = $wpdb;
         $this->name = $name;
-        $this->tableName = $wpdb->prefix . 'cgit_twitter';
-        $this->userTableName = $wpdb->prefix . 'cgit_twitter_users';
+        $this->tableName = $wpdb->base_prefix . 'cgit_twitter';
+        $this->userTableName = $wpdb->base_prefix . 'cgit_twitter_users';
     }
 
     /**

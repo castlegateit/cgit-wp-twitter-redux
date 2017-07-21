@@ -5,22 +5,23 @@
 Plugin Name: Castlegate IT WP Twitter Redux
 Plugin URI: http://github.com/castlegateit/cgit-wp-twitter-redux
 Description: Simple, flexible Twitter feed plugin.
-Version: 1.4.3
+Version: 1.5
 Author: Castlegate IT
 Author URI: http://www.castlegateit.co.uk/
 License: MIT
 
 */
 
-use Cgit\Twitter\Plugin;
+if (!defined('ABSPATH')) {
+    wp_die('Access denied');
+}
 
-// Constants
-define('CGIT_TWITTER_PLUGIN_FILE', __FILE__);
+define('CGIT_TWITTER_REDUX_PLUGIN', __FILE__);
 
-// Load plugin
-require_once __DIR__ . '/twitteroauth/autoload.php';
-require_once __DIR__ . '/src/autoload.php';
+require_once __DIR__ . '/lib/twitteroauth/autoload.php';
+require_once __DIR__ . '/classes/autoload.php';
 require_once __DIR__ . '/functions.php';
 
-// Initialization
-Plugin::getInstance();
+$plugin = new \Cgit\Twitter\Plugin();
+
+do_action('cgit_twitter_redux_loaded');

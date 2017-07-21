@@ -5,44 +5,23 @@ namespace Cgit\Twitter;
 class Plugin
 {
     /**
-     * Singleton class instance
-     *
-     * @var Plugin
-     */
-    private static $instance;
-
-    /**
-     * Private constructor
+     * Constructor
      *
      * Register functions to run on plugin activation and create the feed update
      * action. Register shortcodes and widgets.
      *
      * @return void
      */
-    private function __construct()
+    public function __construct()
     {
         // Check required constants are defined
         $this->checkConstants();
 
         // Make everything work
-        register_activation_hook(CGIT_TWITTER_PLUGIN_FILE, [$this, 'activate']);
+        register_activation_hook(CGIT_TWITTER_REDUX_PLUGIN, [$this, 'activate']);
         add_action('cgit_twitter_update', [$this, 'update']);
         add_action('widgets_init', [$this, 'widget']);
         add_shortcode('twitter_feed', [$this, 'shortcode']);
-    }
-
-    /**
-     * Return the singleton class instance
-     *
-     * @return Plugin
-     */
-    public static function getInstance()
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new self;
-        }
-
-        return self::$instance;
     }
 
     /**

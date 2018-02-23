@@ -84,6 +84,9 @@ class Plugin
             $feed = new Feed($user);
             $feed->update();
         }
+
+        // Limit database cache size
+        $this->cleanDatabaseCache();
     }
 
     /**
@@ -166,5 +169,39 @@ class Plugin
         $feed = new Feed($atts['user']);
 
         return $feed->render($count);
+    }
+
+    /**
+     * Clean database cache
+     *
+     * Restrict the number of tweets stored for each user to prevent the table
+     * from becoming too large.
+     *
+     * @return void
+     */
+    private function cleanDatabaseCache()
+    {
+        global $wpdb;
+
+        $table = $wpdb->base_prefix . 'cgit_twitter';
+        $user_ids = $wpdb->get_col("SELECT DISTINCT user_id FROM $table");
+        $limit = apply_filters('cgit_twitter_cache_limit', 100);
+
+        if (!$user_ids) {
+            return;
+        }
+
+        // Remove all except the most recent n rows for each user that appears
+        // in the table.
+        foreach ($user_ids as $user_id) {
+            $wpdb->query("DELETE FROM $table
+                WHERE user_id = $user_id
+                AND id NOT IN
+                    (SELECT id FROM
+                        (SELECT id FROM $table
+                            WHERE user_id = $user_id
+                            ORDER BY date DESC
+                            LIMIT $limit) x)");
+        }
     }
 }

@@ -194,6 +194,10 @@ class Plugin
         // Remove all except the most recent n rows for each user that appears
         // in the table.
         foreach ($user_ids as $user_id) {
+            if (!$user_id) {
+                continue;
+            }
+
             $wpdb->query("DELETE FROM $table
                 WHERE user_id = $user_id
                 AND id NOT IN

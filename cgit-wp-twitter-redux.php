@@ -8,7 +8,7 @@ Description: Simple, flexible Twitter feed plugin.
 Version: 1.5.2
 Author: Castlegate IT
 Author URI: http://www.castlegateit.co.uk/
-License: AGPL
+License: AGPLv3
 
 */
 

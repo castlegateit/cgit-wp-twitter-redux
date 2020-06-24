@@ -73,6 +73,11 @@ class Feed
         // Twitter API connection
         $connection = new Connection();
 
+        // Failed to establish connection?
+        if (!$connection->established()) {
+            return;
+        }
+
         // Load tweets
         $items = $connection->get(
             'statuses/user_timeline',
@@ -189,6 +194,11 @@ class Feed
 
         // Connect to Twitter to check for user
         $connection = new Connection();
+
+        // Failed to establish connection?
+        if (!$connection->established()) {
+            return;
+        }
 
         $user = $connection->get('users/show', [
             'screen_name' => $this->name,

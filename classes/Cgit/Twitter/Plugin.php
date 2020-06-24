@@ -14,47 +14,11 @@ class Plugin
      */
     public function __construct()
     {
-        // Check required constants are defined
-        $this->checkConstants();
-
         // Make everything work
         register_activation_hook(CGIT_TWITTER_REDUX_PLUGIN, [$this, 'activate']);
         add_action('cgit_twitter_update', [$this, 'update']);
         add_action('widgets_init', [$this, 'widget']);
         add_shortcode('twitter_feed', [$this, 'shortcode']);
-    }
-
-    /**
-     * Check for required constants
-     *
-     * The Twitter OAuth credentials must be set in wp-config.php. If they are
-     * missing, we cannot update the feed.
-     *
-     * @return void
-     */
-    private function checkConstants()
-    {
-        $constants = [
-            'CGIT_TWITTER_KEY',
-            'CGIT_TWITTER_SECRET',
-            'CGIT_TWITTER_TOKEN',
-            'CGIT_TWITTER_TOKEN_SECRET',
-        ];
-
-        $missing = [];
-
-        foreach ($constants as $constant) {
-            if (!defined($constant)) {
-                $missing[] = $constant;
-            }
-        }
-
-        if ($missing) {
-            trigger_error(
-                'Missing constant(s): ' . implode(', ', $missing),
-                E_USER_ERROR
-            );
-        }
     }
 
     /**

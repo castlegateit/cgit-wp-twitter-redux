@@ -18,8 +18,7 @@ if (!defined('ABSPATH')) {
 
 define('CGIT_TWITTER_REDUX_PLUGIN', __FILE__);
 
-require_once __DIR__ . '/lib/twitteroauth/autoload.php';
-require_once __DIR__ . '/classes/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/functions.php';
 
 $plugin = new \Cgit\Twitter\Plugin();

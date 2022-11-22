@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => 'cd2d0b8bca7ffb488703c422a62fe4930b452afc',
+        'name' => 'castlegate/cgit-wp-twitter-redux',
+        'dev' => true,
+    ),
+    'versions' => array(
+        'abraham/twitteroauth' => array(
+            'pretty_version' => '3.1.0',
+            'version' => '3.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../abraham/twitteroauth',
+            'aliases' => array(),
+            'reference' => '51a502cde3c4f414ea0f98827afbeca1f19dfe2d',
+            'dev_requirement' => false,
+        ),
+        'castlegate/cgit-wp-twitter-redux' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => 'cd2d0b8bca7ffb488703c422a62fe4930b452afc',
+            'dev_requirement' => false,
+        ),
+        'composer/ca-bundle' => array(
+            'pretty_version' => '1.3.0',
+            'version' => '1.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/./ca-bundle',
+            'aliases' => array(),
+            'reference' => '679333688725c7dd043ff35c547100ccf512f051',
+            'dev_requirement' => false,
+        ),
+    ),
+);

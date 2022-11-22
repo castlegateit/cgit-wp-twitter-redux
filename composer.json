@@ -1,0 +1,12 @@
+{
+    "name": "castlegate/cgit-wp-twitter-redux",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Cgit\\Twitter\\": "classes"
+        }
+    },
+    "require": {
+        "abraham/twitteroauth": "^3.1"
+    }
+}

@@ -2,8 +2,6 @@
 
 namespace Cgit\Twitter;
 
-use stdClass;
-
 class Feed
 {
     /**
@@ -301,13 +299,11 @@ class Feed
      */
     private static function createEntity($obj)
     {
-        $entity = new stdClass();
-
-        $entity->start = $obj->indices[0];
-        $entity->end = $obj->indices[1];
-        $entity->length = $obj->indices[1] - $obj->indices[0];
-
-        return $entity;
+        return (object) [
+            'start' => $obj->indices[0],
+            'end' => $obj->indices[1],
+            'length' => $obj->indices[1] - $obj->indices[0],
+        ];
     }
 
     /**
@@ -354,7 +350,7 @@ class Feed
 
         // Convert user data to single object
         foreach ($items as $item) {
-            $item->user = new stdClass();
+            $item->user = (object) [];
 
             foreach ($item as $property => $value) {
                 if (strpos($property, $prefix) !== false) {

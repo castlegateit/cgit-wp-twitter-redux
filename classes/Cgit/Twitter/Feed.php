@@ -38,6 +38,34 @@ class Feed
     private $userTableName;
 
     /**
+     * API key
+     *
+     * @var string|null
+     */
+    private $apiKey = null;
+
+    /**
+     * API key secret
+     *
+     * @var string|null
+     */
+    private $apiKeySecret = null;
+
+    /**
+     * Access token
+     *
+     * @var string|null
+     */
+    private $accessToken = null;
+
+    /**
+     * Access token secret
+     *
+     * @var string|null
+     */
+    private $accessTokenSecret = null;
+
+    /**
      * Constructor
      *
      * Sets the screen name and checks for the required constants. The screen
@@ -71,12 +99,7 @@ class Feed
     public function update()
     {
         // Twitter API connection
-        $connection = new Connection();
-
-        // Failed to establish connection?
-        if (!$connection->established()) {
-            return;
-        }
+        $connection = $this->connection();
 
         // Load tweets
         $items = $connection->get(
@@ -193,12 +216,7 @@ class Feed
         }
 
         // Connect to Twitter to check for user
-        $connection = new Connection();
-
-        // Failed to establish connection?
-        if (!$connection->established()) {
-            return;
-        }
+        $connection = $this->connection();
 
         $user = $connection->get('users/show', [
             'screen_name' => $this->name,
@@ -359,6 +377,153 @@ class Feed
         }
 
         return $items;
+    }
+
+    /**
+     * Set API key
+     *
+     * @param string $key
+     * @return void
+     */
+    public function setApiKey(string $key): void
+    {
+        $this->apiKey = $key;
+    }
+
+    /**
+     * Set API key secret
+     *
+     * @param string $secret
+     * @return void
+     */
+    public function setApiKeySecret(string $secret): void
+    {
+        $this->apiKeySecret = $secret;
+    }
+
+    /**
+     * Set access token
+     *
+     * @param string $token
+     * @return void
+     */
+    public function setAccessToken(string $token): void
+    {
+        $this->accessToken = $token;
+    }
+
+    /**
+     * Set access token secret
+     *
+     * @param string $secret
+     * @return void
+     */
+    public function setAccessTokenSecret(string $secret): void
+    {
+        $this->accessTokenSecret = $secret;
+    }
+
+    /**
+     * Return API key
+     *
+     * @return string|null
+     */
+    public function getApiKey(): ?string
+    {
+        if ($this->apiKey) {
+            return $this->apiKey;
+        }
+
+        if (defined('CGIT_TWITTER_KEY')) {
+            return CGIT_TWITTER_KEY;
+        }
+
+        return null;
+    }
+
+    /**
+     * Return API key secret
+     *
+     * @return string|null
+     */
+    public function getApiKeySecret(): ?string
+    {
+        if ($this->apiKeySecret) {
+            return $this->apiKeySecret;
+        }
+
+        if (defined('CGIT_TWITTER_SECRET')) {
+            return CGIT_TWITTER_SECRET;
+        }
+
+        return null;
+    }
+
+    /**
+     * Return access token
+     *
+     * @return string|null
+     */
+    public function getAccessToken(): ?string
+    {
+        if ($this->accessToken) {
+            return $this->accessToken;
+        }
+
+        if (defined('CGIT_TWITTER_TOKEN')) {
+            return CGIT_TWITTER_TOKEN;
+        }
+
+        return null;
+    }
+
+    /**
+     * Return access token secret
+     *
+     * @return string|null
+     */
+    public function getAccessTokenSecret(): ?string
+    {
+        if ($this->accessTokenSecret) {
+            return $this->accessTokenSecret;
+        }
+
+        if (defined('CGIT_TWITTER_TOKEN_SECRET')) {
+            return CGIT_TWITTER_TOKEN_SECRET;
+        }
+
+        return null;
+    }
+
+    /**
+     * Return API connection class instance
+     *
+     * @return Connection
+     */
+    private function connection(): Connection
+    {
+        $keys = $this->keys();
+
+        if (!$keys['api_key'] || !$keys['api_key_secret']) {
+            trigger_error('Twitter API keys missing');
+        }
+
+        return new Connection(...array_values($keys));
+    }
+
+    /**
+     * Return API keys as array
+     *
+     * @return array
+     */
+    private function keys(): array
+    {
+        return [
+            'api_key' => $this->getApiKey(),
+            'api_key_secret' => $this->getApiKeySecret(),
+            'access_token' => $this->getAccessToken(),
+            'access_token_secret' => $this->getAccessTokenSecret(),
+        ];
     }
 
     /**

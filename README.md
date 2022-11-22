@@ -4,15 +4,6 @@ A simple interface for adding Twitter feeds to WordPress sites. It includes a wi
 
 This plugin replaces the previous [Twitter Feed](https://github.com/castlegateit/cgit-wp-twitter) plugin.
 
-## Constants ##
-
-For the plugin to work, you must define the following constants, using the values for the Twitter App you registered for this site (you did register an app using your Twitter account, right?):
-
-*   `CGIT_TWITTER_KEY`
-*   `CGIT_TWITTER_SECRET`
-*   `CGIT_TWITTER_TOKEN`
-*   `CGIT_TWITTER_TOKEN_SECRET`
-
 ## Widget ##
 
 The plugin provides a widget called "Twitter Feed" with settings for the widget title, Twitter screen name, and the number of tweets to display.
@@ -27,6 +18,20 @@ Feed data is handled by the `Cgit\Twitter\Feed` class. The constructor requires 
 
 ~~~ php
 $feed = new \Cgit\Twitter\Feed('example');
+~~~
+
+You will need to provide valid API keys and secrets to access the Twitter API:
+
+~~~ php
+$feed->setApiKey('#');
+$feed->setApiKeySecret('#');
+$feed->setAccessToken('#');
+$feed->setAccessTokenSecret('#');
+~~~
+
+Load tweets:
+
+~~~ php
 $data = $feed->get(4); // get the latest 4 tweets as an array of PHP objects
 $html = $feed->render(4); // get tweets as an HTML list
 ~~~
@@ -52,15 +57,20 @@ $raw = json_decode($data->raw);
 
 Without the second parameter, the `get()` method will not return the original JSON.
 
-## TwitterOAuth library
+## Constants
 
-This plugin includes [Abraham Williams's TwitterOAuth library](https://github.com/abraham/twitteroauth/) as a submodule, so you should clone this repository recursively:
+For backwards compatibility, you can set the Twitter API keys and secrets as constants instead of using the methods described above:
 
-    git clone --recursive git@github.com:castlegateit/cgit-wp-twitter-redux.git
+~~~ php
+define('CGIT_TWITTER_KEY', '#');
+define('CGIT_TWITTER_SECRET', '#');
+define('CGIT_TWITTER_TOKEN', '#');
+define('CGIT_TWITTER_TOKEN_SECRET', '#');
+~~~
 
-Alternatively, if you have already cloned this repository, update the submodules:
+## TwitterOAuth
 
-    git submodule update --init
+This plugin uses [Abraham Williams's TwitterOAuth library](https://github.com/abraham/twitteroauth/) to connect to the Twitter API.
 
 ## License
 
